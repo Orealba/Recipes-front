@@ -1,13 +1,14 @@
 import { Header } from '../components/Header';
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { RecipeGrid } from '../components/RecipeGrid';
 
-
-interface Recipe {
+export interface Recipe {
   id: string;
   name: string;
   total_time: string| null;
   recipe_yield: number | null;
+  image_url: string | null;
 }
 
 export function Home() {
@@ -20,7 +21,7 @@ export function Home() {
     setLoading(true);
     const { data, error } = await supabase
     .from('recipes')
-    .select('id, name, total_time, recipe_yield')
+    .select('id, name, total_time, recipe_yield, image_url')
     .ilike('name', `%${searchQuery}%`);
 
   console.log('Respuesta:', data, error);
@@ -43,13 +44,11 @@ export function Home() {
         onSearch={handleSearch}
   />
   {loading && <p>Buscando...</p>}
-{recipes.length > 0 && (
-  <p>{recipes.length} recetas encontradas</p>
-)}
+
 {!loading && hasSearched && recipes.length === 0 && (
   <p>No encontré esa receta. Prueba con otro ingrediente o nombre.</p>
 )}
-
+<RecipeGrid recipes={recipes} />
 
       </main>
     </div>
