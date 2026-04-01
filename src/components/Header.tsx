@@ -1,6 +1,13 @@
 import { Search, SlidersHorizontal } from 'lucide-react';
+import React, { useState } from 'react';
 
 export function Header() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        console.log('Buscar:', searchQuery);
+      }
+  };
   return (
     <header className="flex flex-col items-center text-center mb-16">
       <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900">
@@ -20,6 +27,9 @@ export function Header() {
         <input
           type="text"
           placeholder="Buscar recetas, ingredientes..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           className="flex-1 py-4 px-3 text-gray-700 outline-none w-full bg-transparent"
         />
         <button className="bg-[#c45a36] text-white px-8 py-4 font-semibold hover:bg-[#a84c2e] transition-colors">
