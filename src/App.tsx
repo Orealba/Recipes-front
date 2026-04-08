@@ -1,10 +1,16 @@
 import { Home } from './pages/Home';
+import { RecipeDetail } from './pages/RecipeDetail';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 
 function App() {
   return (
-    <div className="min-h-screen">
-      <Home />
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/recipe/:id' element={<RecipeDetail />} />
+    </Routes>
+    </BrowserRouter>
   );
 }
 
