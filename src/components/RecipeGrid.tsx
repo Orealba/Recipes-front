@@ -11,6 +11,7 @@ export function RecipeGrid({ recipes }: RecipeGridProps) {
       {recipes.map((recipe) => (
         <RecipeCard
           key={recipe.id}
+          id={recipe.id}
           name={recipe.name}
           total_time={recipe.total_time}
           recipe_yield={recipe.recipe_yield}

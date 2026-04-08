@@ -1,14 +1,17 @@
 import { Clock, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface RecipesCardProps {
+  id: string
   name: string;
   total_time: string |null;
   recipe_yield: number |null;
   image_url: string | null;
 }
 
-export function RecipeCard ({name, total_time, recipe_yield, image_url} : RecipesCardProps) {
+export function RecipeCard ({id,name, total_time, recipe_yield, image_url} : RecipesCardProps) {
   return (
+  <a href={`/recipe/${id}`} target="_blank" rel="noopener noreferrer" className="block">
     <div className=" bg-white rounded-lg shadow-sm border-gray-200 overflow-hidden max-w-sm mx-auto w-full">
       <img src={image_url || 'https://img.hellofresh.com/f_auto,fl_lossy,h_640,q_auto,w_1200/hellofresh_s3/image/HF_Y23_R08_W32_ES_ESCFVQV0094-4_Main_R_high-3feb0424.jpg'}
       alt={name}
@@ -34,5 +37,6 @@ export function RecipeCard ({name, total_time, recipe_yield, image_url} : Recipe
       </div>
 
     </div>
+    </a>
   )
 }
