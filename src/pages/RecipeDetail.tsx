@@ -1,8 +1,8 @@
-import { RecipeHero } from "../components/RecipeHero";
+import { RecipeHero } from "../components/RecipeDetail/RecipeHero";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
-import { RecipeDescription } from '../components/RecipeDescription';
+import { RecipeDescription } from '../components/RecipeDetail/RecipeDescription';
 
 interface Recipe {
   id: string;
