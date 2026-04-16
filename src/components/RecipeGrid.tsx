@@ -5,7 +5,10 @@ interface RecipeGridProps {
   recipes: Recipe[];
 }
 
+
+
 export function RecipeGrid({ recipes }: RecipeGridProps) {
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {recipes.map((recipe) => (
@@ -15,7 +18,7 @@ export function RecipeGrid({ recipes }: RecipeGridProps) {
           name={recipe.name}
           total_time={recipe.total_time}
           recipe_yield={recipe.recipe_yield}
-          image_url={recipe.image_url}
+          local_image_name={recipe.local_image_name}
         />
       ))}
     </div>
