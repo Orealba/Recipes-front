@@ -1,8 +1,8 @@
-import { Header } from '../components/Header';
-import { useState, useEffect } from 'react';
-import { RecipeGrid } from '../components/RecipeGrid';
-import { recipesIndex } from '../data/recipes-index';
-import { homeRecipes } from '../data/home-recipes';
+import { Header } from "../components/Header";
+import { useState, useEffect } from "react";
+import { RecipeGrid } from "../components/RecipeGrid";
+import { recipesIndex } from "../data/recipes-index";
+import { homeRecipes } from "../data/home-recipes";
 export interface Recipe {
   id: string;
   name: string;
@@ -13,37 +13,37 @@ export interface Recipe {
   local_image_name?: string;
 }
 export function Home() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   // Obtener recetas para mostrar cuando no hay búsqueda
-  const quickRecipes: Recipe[] = homeRecipes.quick.map(r => ({
+  const quickRecipes: Recipe[] = homeRecipes.quick.map((r) => ({
     id: r.id,
     name: r.name,
     total_time: r.total_time,
     recipe_yield: r.recipe_yield,
     image_url: null,
-    local_image_name: r.local_image_name
+    local_image_name: r.local_image_name,
   }));
-  const chickenRecipes: Recipe[] = homeRecipes.chicken.map(r => ({
+  const chickenRecipes: Recipe[] = homeRecipes.chicken.map((r) => ({
     id: r.id,
     name: r.name,
     total_time: r.total_time,
     recipe_yield: r.recipe_yield,
     image_url: null,
-    local_image_name: r.local_image_name
+    local_image_name: r.local_image_name,
   }));
-  const randomRecipes: Recipe[] = homeRecipes.random.map(r => ({
+  const randomRecipes: Recipe[] = homeRecipes.random.map((r) => ({
     id: r.id,
     name: r.name,
     total_time: r.total_time,
     recipe_yield: r.recipe_yield,
     image_url: null,
-    local_image_name: r.local_image_name
+    local_image_name: r.local_image_name,
   }));
   // Effect para detectar cuando se borra la búsqueda
   useEffect(() => {
-    if (searchQuery.trim() === '') {
+    if (searchQuery.trim() === "") {
       setHasSearched(false);
       setRecipes([]);
     }
@@ -60,7 +60,7 @@ export function Home() {
       .filter((recipe) => {
         const nameMatch = recipe.name.toLowerCase().includes(query);
         const ingredientMatch = recipe.ingredients?.some((ing) =>
-          ing.toLowerCase().includes(query)
+          ing.toLowerCase().includes(query),
         );
         return nameMatch || ingredientMatch;
       })
@@ -70,7 +70,7 @@ export function Home() {
         total_time: recipe.total_time,
         recipe_yield: recipe.recipe_yield,
         image_url: null,
-        local_image_name: recipe.local_image_name
+        local_image_name: recipe.local_image_name,
       }));
     setRecipes(filtered);
   };
@@ -86,11 +86,15 @@ export function Home() {
         {hasSearched && (
           <div>
             {recipes.length === 0 ? (
-              <p className="text-gray-500 mt-8">No encontré esa receta. Prueba con otro ingrediente o nombre.</p>
+              <p className="text-gray-500 mt-8">
+                No encontré esa receta. Prueba con otro ingrediente o nombre.
+              </p>
             ) : (
               <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-4">Resultados de "{searchQuery}"</h2>
-                <RecipeGrid recipes={recipes} />
+                <h2 className="text-xl font-semibold mb-4">
+                  Resultados de "{searchQuery}"
+                </h2>
+                <RecipeGrid recipes={quickRecipes.slice(0, 3)} />
               </div>
             )}
           </div>
@@ -101,19 +105,31 @@ export function Home() {
             {quickRecipes.length > 0 && (
               <div>
                 <h2 className="text-xl font-semibold mb-4">Recetas rápidas</h2>
-                <RecipeGrid recipes={quickRecipes} />
+                <RecipeGrid recipes={quickRecipes.slice(0, 3)} />
+                <div className="flex justify-center mt-4">
+                  <button className="px-6 py-2 text-green-600 border border-green-600 rounded-lg hover:bg-green-50">
+                    Ver más
+                  </button>
+                </div>
               </div>
             )}
             {chickenRecipes.length > 0 && (
               <div>
                 <h2 className="text-xl font-semibold mb-4">Con pollo</h2>
-                <RecipeGrid recipes={chickenRecipes} />
+                <RecipeGrid recipes={quickRecipes.slice(0, 3)} />
+                <div className="flex justify-center mt-4">
+                  <button className="px-6 py-2 text-green-600 border border-green-600 rounded-lg hover:bg-green-50">
+                    Ver más
+                  </button>
+                </div>
               </div>
             )}
             {randomRecipes.length > 0 && (
               <div>
-                <h2 className="text-xl font-semibold mb-4">Recomendadas para ti</h2>
-                <RecipeGrid recipes={randomRecipes} />
+                <h2 className="text-xl font-semibold mb-4">
+                  Recomendadas para ti
+                </h2>
+                <RecipeGrid recipes={quickRecipes.slice(0, 3)} />
               </div>
             )}
           </div>
