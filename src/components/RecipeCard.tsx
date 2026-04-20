@@ -34,7 +34,7 @@ export function RecipeCard({
         />
         <div className="p-4">
           <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
-            {name}
+            ¯{name}
           </h3>
           <div className="flex gap-4 text-gray-500 text-sm">
             {total_time && (
