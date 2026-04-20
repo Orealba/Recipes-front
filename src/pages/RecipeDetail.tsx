@@ -3,6 +3,9 @@ import { RecipeHero } from "../components/RecipeDetail/RecipeHero";
 import { useParams } from "react-router-dom";
 import { RecipeInfo } from '../components/RecipeDetail/RecipeInfo';
 import { RecipeDescription } from '../components/RecipeDetail/RecipeDescription';
+import { RecipeAllergens } from '../components/RecipeDetail/RecipeAllergens';
+import { RecipeIngredients } from '../components/RecipeDetail/RecipeIngredients';
+import { RecipeSteps } from '../components/RecipeDetail/RecipeSteps';
 
 export function RecipeDetail() {
   const { id } = useParams<{ id: string }>();
@@ -37,6 +40,9 @@ export function RecipeDetail() {
         difficulty={recipe.difficulty}
       />
       <RecipeDescription description={recipe.description} />
+      <RecipeAllergens allergens={recipe.allergens || []} />
+      <RecipeIngredients ingredients={recipe.ingredients_text || []} baseYield={recipe.recipe_yield || 2} />
+      <RecipeSteps steps={recipe.instruction_steps || []} />
     </div>
   );
 }

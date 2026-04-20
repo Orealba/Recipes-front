@@ -18,32 +18,44 @@ export function Home() {
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
 
-  const quickRecipes = useMemo(() => homeRecipes.quick.map((r) => ({
-    id: r.id,
-    name: r.name,
-    total_time: r.total_time,
-    recipe_yield: r.recipe_yield,
-    image_url: null,
-    local_image_name: r.local_image_name,
-  })), []);
+  const quickRecipes = useMemo(
+    () =>
+      homeRecipes.quick.map((r) => ({
+        id: r.id,
+        name: r.name,
+        total_time: r.total_time,
+        recipe_yield: r.recipe_yield,
+        image_url: null,
+        local_image_name: r.local_image_name,
+      })),
+    [],
+  );
 
-  const chickenRecipes = useMemo(() => homeRecipes.chicken.map((r) => ({
-    id: r.id,
-    name: r.name,
-    total_time: r.total_time,
-    recipe_yield: r.recipe_yield,
-    image_url: null,
-    local_image_name: r.local_image_name,
-  })), []);
+  const chickenRecipes = useMemo(
+    () =>
+      homeRecipes.chicken.map((r) => ({
+        id: r.id,
+        name: r.name,
+        total_time: r.total_time,
+        recipe_yield: r.recipe_yield,
+        image_url: null,
+        local_image_name: r.local_image_name,
+      })),
+    [],
+  );
 
-  const randomRecipes = useMemo(() => homeRecipes.random.map((r) => ({
-    id: r.id,
-    name: r.name,
-    total_time: r.total_time,
-    recipe_yield: r.recipe_yield,
-    image_url: null,
-    local_image_name: r.local_image_name,
-  })), []);
+  const randomRecipes = useMemo(
+    () =>
+      homeRecipes.random.map((r) => ({
+        id: r.id,
+        name: r.name,
+        total_time: r.total_time,
+        recipe_yield: r.recipe_yield,
+        image_url: null,
+        local_image_name: r.local_image_name,
+      })),
+    [],
+  );
   // Effect para detectar cuando se borra la búsqueda
   useEffect(() => {
     if (searchQuery.trim() === "") {
