@@ -1,0 +1,38 @@
+import json
+input_file = 'hellofresh_es_recipes.jsonl'
+output_file = 'recipes-index.ts'
+recipes = []
+def get_first_cuisine(cuisines):
+    if not cuisines:
+        return ''
+    if isinstance(cuisines, list) and len(cuisines) > 0:
+        if isinstance(cuisines[0], dict):
+            return cuisines[0].get('name', '')
+        return str(cuisines[0])
+    if isinstance(cuisines, str):
+        return cuisines
+    return ''
+with open(input_file, 'r', encoding='utf-8') as f:
+    for line in f:
+        data = json.loads(line)
+        url = data.get('url', '')
+        slug = url.split('/')[-1] if url else ''
+
+        rich_ingredients = data.get('richIngredients', [])
+        ingredient_names = [i.get('name', '') for i in rich_ingredients] if rich_ingredients else []
+
+        recipe = {
+            'id': slug,
+            'name': data.get('name', ''),
+            'local_image_name': data.get('local_image_name', ''),
+            'total_time': data.get('totalTime', ''),
+            'recipe_yield': data.get('recipeYield', 2),
+            'difficulty': data.get('difficulty', 1),
+            'ingredients': ingredient_names,
+            'tags': [t.get('name', '') for t in data.get('tags', [])],
+            'cuisine': get_first_cuisine(data.get('cuisines'))
+        }
+        recipes.append(recipe)
+with open(output_file, 'w', encoding='utf-8') as f:
+    f.write('export const recipesIndex = ' + json.dumps(recipes, ensure_ascii=False, indent=2) + ';\n')
+print(f'Generated {len(recipes)} recipes')
