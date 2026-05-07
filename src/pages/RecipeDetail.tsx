@@ -59,9 +59,9 @@ export function RecipeDetail() {
       />
       <RecipeDescription description={recipe.description} />
       <RecipeAllergens allergens={recipe.allergens || []} />
-      <RecipeNutrition nutrition={recipe.nutrition || null} />
       <RecipeIngredients ingredients={recipe.ingredients_text || []} baseYield={recipe.recipe_yield || 2} />
       <RecipeSteps steps={recipe.instruction_steps || []} />
+      <RecipeNutrition nutrition={recipe.nutrition || null} />
     </div>
   );
 }
