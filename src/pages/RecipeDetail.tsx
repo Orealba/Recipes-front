@@ -14,13 +14,22 @@ export function RecipeDetail() {
 
   useEffect(() => {
     const loadRecipe = async () => {
-      const res = await fetch('/recipes.json');
-      const recipes = await res.json();
-      const found = recipes.find((r: any) => r.id === id);
-      setRecipe(found);
+      if (!id) { setLoading(false); return; }
+      const idxRes = await fetch('/recipes.idx.json');
+      const idx = await idxRes.json();
+      const entry = idx[id];
+      if (!entry) { setLoading(false); return; }
+
+      const end = entry.offset + entry.length - 1;
+      const recipeRes = await fetch('/recipes.jsonl', {
+        headers: { 'Range': `bytes=${entry.offset}-${end}` }
+      });
+      const text = await recipeRes.text();
+      const recipe = JSON.parse(text);
+      setRecipe(recipe);
       setLoading(false);
     };
-    if (id) loadRecipe();
+    loadRecipe();
   }, [id]);
 
   if (loading || !recipe) {

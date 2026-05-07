@@ -25,3 +25,7 @@ dist-ssr
 *.env
 .env
 Json/
+
+# Generated data files
+public/recipes.jsonl
+public/recipes.idx.json
