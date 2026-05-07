@@ -15,12 +15,11 @@ export function Header({ searchQuery, onSearchChange, onSearch }: HeaderProps) {
   return (
     <header className="flex flex-col items-center text-center mb-16">
       <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900">
-        Libro de recetas
+        ¿Qué cocino hoy?
       </h1>
 
       <p className="text-gray-500 max-w-2xl text-lg mb-10">
-        Encuentra recetas deliciosas paso a paso. Solo escribe el nombre de un
-        plato o los ingredientes que tienes en casa para empezar.
+        Tu buscador gastronómico con más de mil recetas de todo tipo. El recetario digital definitivo para descubrir tu próximo bocado favorito.
       </p>
 
 
