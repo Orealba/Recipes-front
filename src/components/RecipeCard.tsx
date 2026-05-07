@@ -1,5 +1,4 @@
 import { Clock, Users } from "lucide-react";
-import { Link } from "react-router-dom";
 
 interface RecipesCardProps {
   id: string;
@@ -17,8 +16,10 @@ export function RecipeCard({
   local_image_name,
 }: RecipesCardProps) {
   return (
-    <Link
-      to={`/recipe/${id}`}
+    <a
+      href={`/recipe/${id}`}
+      target="_blank"
+      rel="noopener noreferrer"
       className="block"
     >
       <div className=" bg-white rounded-lg shadow-sm border-gray-200 overflow-hidden max-w-sm mx-auto w-full">
@@ -54,6 +55,6 @@ export function RecipeCard({
           </div>
         </div>
       </div>
-    </Link>
+    </a>
   );
 }
