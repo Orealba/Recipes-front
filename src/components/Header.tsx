@@ -15,7 +15,7 @@ export function Header({ searchQuery, onSearchChange, onSearch }: HeaderProps) {
   return (
     <header className="flex flex-col items-center text-center mb-16">
       <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900">
-        ¿Qué cocino hoy?
+        Mil bocados
       </h1>
 
       <p className="text-gray-500 max-w-2xl text-lg mb-10">
