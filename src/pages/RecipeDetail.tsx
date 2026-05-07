@@ -9,19 +9,19 @@ import { RecipeSteps } from '../components/RecipeDetail/RecipeSteps';
 
 export function RecipeDetail() {
   const { id } = useParams<{ id: string }>();
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [recipe, setRecipe] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadRecipes = async () => {
-      const { recipes } = await import('../data/recipes');
-      setRecipes(recipes);
+    const loadRecipe = async () => {
+      const res = await fetch('/recipes.json');
+      const recipes = await res.json();
+      const found = recipes.find((r: any) => r.id === id);
+      setRecipe(found);
       setLoading(false);
     };
-    loadRecipes();
-  }, []);
-
-  const recipe = id ? recipes.find((r: any) => r.id === id) : null;
+    if (id) loadRecipe();
+  }, [id]);
 
   if (loading || !recipe) {
     return <div className="p-4">Cargando...</div>;
