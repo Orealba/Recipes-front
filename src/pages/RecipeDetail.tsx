@@ -6,6 +6,7 @@ import { RecipeDescription } from '../components/RecipeDetail/RecipeDescription'
 import { RecipeAllergens } from '../components/RecipeDetail/RecipeAllergens';
 import { RecipeIngredients } from '../components/RecipeDetail/RecipeIngredients';
 import { RecipeSteps } from '../components/RecipeDetail/RecipeSteps';
+import { RecipeNutrition } from '../components/RecipeDetail/RecipeNutrition';
 
 export function RecipeDetail() {
   const { id } = useParams<{ id: string }>();
@@ -45,11 +46,20 @@ export function RecipeDetail() {
       />
       <RecipeInfo
         total_time={recipe.total_time}
-        calories={recipe.nutrition?.calories}
+        calories={(() => {
+          const n = recipe.nutrition;
+          if (!n) return null;
+          if (Array.isArray(n)) {
+            const kcal = n.find((i: any) => i.name?.includes('kcal'));
+            return kcal?.amount ?? null;
+          }
+          return n.calories ?? null;
+        })()}
         difficulty={recipe.difficulty}
       />
       <RecipeDescription description={recipe.description} />
       <RecipeAllergens allergens={recipe.allergens || []} />
+      <RecipeNutrition nutrition={recipe.nutrition || null} />
       <RecipeIngredients ingredients={recipe.ingredients_text || []} baseYield={recipe.recipe_yield || 2} />
       <RecipeSteps steps={recipe.instruction_steps || []} />
     </div>
