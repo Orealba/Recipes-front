@@ -29,3 +29,5 @@ Json/
 # Generated data files
 public/recipes.jsonl
 public/recipes.idx.json
+public/categories-index.json
+public/recipes-meta.json
