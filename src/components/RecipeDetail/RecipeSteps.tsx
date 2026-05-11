@@ -29,7 +29,7 @@ export function RecipeSteps({ steps }: RecipeStepsProps) {
               <img
                 src={`/hellofresh_images/${step.images[0].local_image_name}`}
                 alt={`Paso ${step.index}`}
-                className="w-52 h-52 object-cover rounded-lg flex-shrink-0"
+                className="hidden md:block w-52 h-52 object-cover rounded-lg flex-shrink-0"
               />
             )}
             <div 
