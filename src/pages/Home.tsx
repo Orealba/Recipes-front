@@ -84,17 +84,19 @@ export function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
   const [quickRecipes, setQuickRecipes] = useState<Recipe[]>([]);
   const [chickenRecipes, setChickenRecipes] = useState<Recipe[]>([]);
   const [randomRecipes, setRandomRecipes] = useState<Recipe[]>([]);
 
   const catIdxRef = useRef<Record<string, { recipes: string[] }> | null>(null);
+  const metaRef = useRef<Record<string, any> | null>(null);
+  const allResultsRef = useRef<Recipe[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState<number>(0);
   const [selectedMaxTime, setSelectedMaxTime] = useState<number>(0);
-  const allResultsRef = useRef<Recipe[]>([]);
+
+  const anyFilterActive = selectedCategories.length > 0 || selectedDifficulty > 0 || selectedMaxTime > 0;
 
   useEffect(() => {
     const loadSections = async () => {
@@ -104,6 +106,7 @@ export function Home() {
       ]);
       const meta = await metaRes.json();
       const catIdx = await catRes.json();
+      metaRef.current = meta;
       catIdxRef.current = catIdx;
 
       const pick = (ids: string[], n: number) =>
@@ -123,18 +126,27 @@ export function Home() {
       setHasSearched(false);
       setRecipes([]);
       allResultsRef.current = [];
-      setSelectedCategories([]);
-      setSelectedDifficulty(0);
-      setSelectedMaxTime(0);
     }
   }, [searchQuery]);
 
+  /* Aplica filtros sobre la base correcta (texto o todas las recetas) */
   useEffect(() => {
-    if (allResultsRef.current.length === 0) return;
-    let filtered = [...allResultsRef.current];
+    const needsFiltering = hasSearched || (showFilters && anyFilterActive);
+    if (!needsFiltering) {
+      setRecipes([]);
+      return;
+    }
+
+    let base: Recipe[] = [];
+
+    if (hasSearched) {
+      base = [...allResultsRef.current];
+    } else if (metaRef.current) {
+      base = Object.keys(metaRef.current).map(id => metaToRecipe(metaRef.current!, id));
+    }
 
     if (selectedCategories.length > 0 && catIdxRef.current) {
-      filtered = filtered.filter(r =>
+      base = base.filter(r =>
         selectedCategories.some(cat =>
           catIdxRef.current![cat]?.recipes.includes(r.id)
         )
@@ -142,18 +154,18 @@ export function Home() {
     }
 
     if (selectedDifficulty > 0) {
-      filtered = filtered.filter(r => r.difficulty !== undefined && r.difficulty <= selectedDifficulty);
+      base = base.filter(r => r.difficulty !== undefined && r.difficulty <= selectedDifficulty);
     }
 
     if (selectedMaxTime > 0) {
-      filtered = filtered.filter(r => {
+      base = base.filter(r => {
         const m = parseMinutes(r.total_time ?? '');
         return m > 0 && m <= selectedMaxTime;
       });
     }
 
-    setRecipes(filtered);
-  }, [selectedCategories, selectedDifficulty, selectedMaxTime]);
+    setRecipes(base);
+  }, [hasSearched, showFilters, anyFilterActive, selectedCategories, selectedDifficulty, selectedMaxTime]);
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
@@ -162,16 +174,11 @@ export function Home() {
       return;
     }
     setHasSearched(true);
-    setIsSearching(true);
-    setSelectedCategories([]);
-    setSelectedDifficulty(0);
-    setSelectedMaxTime(0);
 
     const { recipesIndex } = await import("../data/recipes-index");
     const tokens = tokenize(searchQuery);
     if (tokens.length === 0) {
       setRecipes([]);
-      setIsSearching(false);
       return;
     }
     const filtered = recipesIndex
@@ -193,7 +200,6 @@ export function Home() {
       }));
     allResultsRef.current = filtered;
     setRecipes(filtered);
-    setIsSearching(false);
   };
 
   const toggleCategory = (cat: string) => {
@@ -201,6 +207,8 @@ export function Home() {
       prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
     );
   };
+
+  const panelOpen = showFilters || hasSearched;
 
   return (
     <div className="min-h-screen text-gray-900 font-sans bg-[#faf9f6]">
@@ -212,90 +220,88 @@ export function Home() {
           showFilters={showFilters}
           onToggleFilters={() => setShowFilters(v => !v)}
         />
-        {/* Si hay búsqueda activa, mostrar resultados */}
-        {hasSearched && (
-          <div>
-            {isSearching ? (
-              <p className="text-gray-500 mt-8">Buscando recetas...</p>
-            ) : recipes.length === 0 && allResultsRef.current.length === 0 ? (
-              <p className="text-gray-500 mt-8">
-                No encontré esa receta. Prueba con otro ingrediente o nombre.
+
+        {/* Panel de filtros (visible al tocar Filtros o al buscar) */}
+        {panelOpen && (
+          <div className="mt-8 mb-6">
+            {hasSearched && (
+              <h2 className="text-xl font-semibold mb-2">
+                Resultados de "{searchQuery}"
+                <span className="text-sm font-normal text-gray-500 ml-2">
+                  {recipes.length} recetas
+                </span>
+              </h2>
+            )}
+
+            <div className="flex flex-wrap gap-6 p-4 bg-white rounded-lg border border-gray-200">
+              <div>
+                <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">Categoría</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {CATEGORY_KEYS.map(key => (
+                    <FilterChip
+                      key={key}
+                      label={CATEGORY_LABELS[key]}
+                      active={selectedCategories.includes(key)}
+                      onClick={() => toggleCategory(key)}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">Dificultad</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    { value: 0, label: 'Cualquiera' },
+                    { value: 1, label: 'Fácil' },
+                    { value: 2, label: 'Media' },
+                    { value: 3, label: 'Difícil' },
+                  ].map(({ value, label }) => (
+                    <FilterChip
+                      key={value}
+                      label={label}
+                      active={selectedDifficulty === value}
+                      onClick={() => setSelectedDifficulty(selectedDifficulty === value ? 0 : value)}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">Tiempo máx</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    { value: 0, label: 'Cualquiera' },
+                    { value: 15, label: '15 min' },
+                    { value: 30, label: '30 min' },
+                    { value: 45, label: '45 min' },
+                  ].map(({ value, label }) => (
+                    <FilterChip
+                      key={value}
+                      label={label}
+                      active={selectedMaxTime === value}
+                      onClick={() => setSelectedMaxTime(selectedMaxTime === value ? 0 : value)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Resultados */}
+            {recipes.length === 0 ? (
+              <p className="text-gray-500 mt-6">
+                {anyFilterActive || hasSearched
+                  ? 'Ninguna receta coincide con los filtros seleccionados.'
+                  : 'Selecciona filtros para encontrar recetas'}
               </p>
             ) : (
-              <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-2">
-                  Resultados de "{searchQuery}"
-                  <span className="text-sm font-normal text-gray-500 ml-2">
-                    {recipes.length} recetas
-                  </span>
-                </h2>
-
-                {/* Filtros */}
-                {showFilters && <div className="flex flex-wrap gap-6 mb-6 p-4 bg-white rounded-lg border border-gray-200">
-                  <div>
-                    <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">Categoría</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {CATEGORY_KEYS.map(key => (
-                        <FilterChip
-                          key={key}
-                          label={CATEGORY_LABELS[key]}
-                          active={selectedCategories.includes(key)}
-                          onClick={() => toggleCategory(key)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">Dificultad</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {[
-                        { value: 0, label: 'Cualquiera' },
-                        { value: 1, label: 'Fácil' },
-                        { value: 2, label: 'Media' },
-                        { value: 3, label: 'Difícil' },
-                      ].map(({ value, label }) => (
-                        <FilterChip
-                          key={value}
-                          label={label}
-                          active={selectedDifficulty === value}
-                          onClick={() => setSelectedDifficulty(selectedDifficulty === value ? 0 : value)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">Tiempo máx</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {[
-                        { value: 0, label: 'Cualquiera' },
-                        { value: 15, label: '15 min' },
-                        { value: 30, label: '30 min' },
-                        { value: 45, label: '45 min' },
-                      ].map(({ value, label }) => (
-                        <FilterChip
-                          key={value}
-                          label={label}
-                          active={selectedMaxTime === value}
-                          onClick={() => setSelectedMaxTime(selectedMaxTime === value ? 0 : value)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>}
-
-                {recipes.length === 0 ? (
-                  <p className="text-gray-500 mt-4">
-                    Ninguna receta coincide con los filtros seleccionados.
-                  </p>
-                ) : (
-                  <RecipeGrid recipes={recipes} />
-                )}
+              <div className="mt-6">
+                <RecipeGrid recipes={recipes} />
               </div>
             )}
           </div>
         )}
-        {/* Si NO hay búsqueda activa, mostrar recetas por categorías */}
-        {!hasSearched && (
+
+        {/* Secciones del home (solo si no hay panel abierto) */}
+        {!panelOpen && (
           <div className="space-y-10">
             {quickRecipes.length > 0 && (
               <div>
