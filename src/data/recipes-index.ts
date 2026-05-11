@@ -26073,70 +26073,6 @@ export const recipesIndex = [
     "cuisine": "Francesa"
   },
   {
-    "id": "extra-merluza-6729f91008580719f8597f3b",
-    "name": "Extra Merluza 125g por porción",
-    "local_image_name": "extra-merluza-6729f91008580719f8597f3b.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Merluza"
-    ],
-    "tags": [
-      "SEO",
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-bacalao-6729fade08580719f8597f75",
-    "name": "Extra Bacalao 125g por porción",
-    "local_image_name": "extra-bacalao-6729fade08580719f8597f75.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Bacalao"
-    ],
-    "tags": [
-      "SEO",
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-salmon-6729fb3012c55222c8cc863f",
-    "name": "Extra Salmón noruego 100g por ración",
-    "local_image_name": "extra-salmon-6729fb3012c55222c8cc863f.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Salmón noruego"
-    ],
-    "tags": [
-      "SEO",
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-langostino-6729fc1512c55222c8cc8651",
-    "name": "Extra Langostinos 75g por ración",
-    "local_image_name": "extra-langostino-6729fc1512c55222c8cc8651.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Langostinos"
-    ],
-    "tags": [
-      "SEO",
-      "Bajo en calorías"
-    ],
-    "cuisine": "57ebbc17b7e8697d4b3053b8"
-  },
-  {
     "id": "verduras-al-horno-con-halloumi-acompanado-de-olivada-casera-672b754bb88de70de2e9c2bf",
     "name": "Heura asada con olivada casera sobre ratatouille de verduras al horno",
     "local_image_name": "verduras-al-horno-con-halloumi-acompanado-de-olivada-casera-672b754bb88de70de2e9c2bf.jpg",
@@ -26558,17 +26494,6 @@ export const recipesIndex = [
       "Balanced",
       "Una sartén"
     ],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "caja-de-fruta-673ca98edd37d34956aeda47",
-    "name": "Caja de fruta Caja de fruta de temporada",
-    "local_image_name": "caja-de-fruta-673ca98edd37d34956aeda47.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [],
-    "tags": [],
     "cuisine": "Mediterránea "
   },
   {
@@ -26995,34 +26920,6 @@ export const recipesIndex = [
     "cuisine": "Mediterránea "
   },
   {
-    "id": "extra-salmon-674dcafef02f84674c805fe3",
-    "name": "Extra Salmón 100g por ración",
-    "local_image_name": "extra-salmon-674dcafef02f84674c805fe3.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Salmón noruego"
-    ],
-    "tags": [],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-pota-674dd5ebf02f84674c80621a",
-    "name": "Extra Calamar gigante 100g por ración",
-    "local_image_name": "extra-pota-674dd5ebf02f84674c80621a.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Aros de pota"
-    ],
-    "tags": [
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
     "id": "lomo-de-cerdo-en-salsa-de-zanahoria-acompanado-de-quinoa-y-calabacin-a-la-plancha-674ebf87f02f84674c808ba1",
     "name": "Lomo de cerdo con salsa de zanahoria con quinoa tricolor y calabacín",
     "local_image_name": "lomo-de-cerdo-en-salsa-de-zanahoria-acompanado-de-quinoa-y-calabacin-a-la-plancha-674ebf87f02f84674c808ba1.jpg",
@@ -27273,51 +27170,6 @@ export const recipesIndex = [
     "cuisine": "57ebbc17b7e8697d4b3053b2"
   },
   {
-    "id": "extra-pechuga-677e592cea4876edd83b1c62",
-    "name": "Extra Pechuga de pollo 125g por ración",
-    "local_image_name": "extra-pechuga-677e592cea4876edd83b1c62.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Pechuga de pollo"
-    ],
-    "tags": [
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-muslo-de-pollo-677e59dd119b1cbfa3efab6b",
-    "name": "Extra Muslo de pollo 140g por ración",
-    "local_image_name": "extra-muslo-de-pollo-677e59dd119b1cbfa3efab6b.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Muslos de pollo deshuesados"
-    ],
-    "tags": [
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-muslo-pollo-troceado-677e5a10ea4876edd83b1c6f",
-    "name": "Extra Muslo de pollo troceado 125g por ración",
-    "local_image_name": "extra-muslo-pollo-troceado-677e5a10ea4876edd83b1c6f.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Muslos de pollo troceados"
-    ],
-    "tags": [
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
     "id": "los-bichos-de-timon-gnocchi-con-salsa-de-mostaza-antigua-y-verduras-salteadas-677f9b9cea4876edd83b36f2",
     "name": "Gnocchis al ritmo de la Sabana, inspirados en Timón con mostaza y verduras salteadas",
     "local_image_name": "los-bichos-de-timon-gnocchi-con-salsa-de-mostaza-antigua-y-verduras-salteadas-677f9b9cea4876edd83b36f2.jpg",
@@ -27493,21 +27345,6 @@ export const recipesIndex = [
     "cuisine": "57ebbc17b7e8697d4b3053a5"
   },
   {
-    "id": "extra-jamoncitos-de-pollo-677fccf09bad0bb45fbd7b46",
-    "name": "Extra Jamoncitos de pollo 145g por porción",
-    "local_image_name": "extra-jamoncitos-de-pollo-677fccf09bad0bb45fbd7b46.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Jamoncitos de pollo"
-    ],
-    "tags": [
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
     "id": "el-corazon-de-te-fiti-pollo-con-pure-de-patatas-y-espinacasel-corazon-de-te-fiti-pollo-con-pure-de-patatas-y-espinacas-677fcf699bad0bb45fbd7ba3",
     "name": "Pollo a la miel con puré verde de patata y espinaca con pimientos salteados",
     "local_image_name": "el-corazon-de-te-fiti-pollo-con-pure-de-patatas-y-espinacasel-corazon-de-te-fiti-pollo-con-pure-de-patatas-y-espinacas-677fcf699bad0bb45fbd7ba3.jpg",
@@ -27591,69 +27428,6 @@ export const recipesIndex = [
       "Exprés"
     ],
     "cuisine": "Española"
-  },
-  {
-    "id": "extra-alitas-de-pollo-678523408df7073882b26534",
-    "name": "Extra Alitas de pollo 250g por ración",
-    "local_image_name": "extra-alitas-de-pollo-678523408df7073882b26534.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Alitas de pollo"
-    ],
-    "tags": [],
-    "cuisine": ""
-  },
-  {
-    "id": "extra-ternera-6786321b8df7073882b292a5",
-    "name": "Extra Ternera 125g por ración",
-    "local_image_name": "extra-ternera-6786321b8df7073882b292a5.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Filete de ternera"
-    ],
-    "tags": [],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-lomo-de-cerdo-6786325364bdcbbc2225f74d",
-    "name": "Extra Lomo de cerdo 125g por ración",
-    "local_image_name": "extra-lomo-de-cerdo-6786325364bdcbbc2225f74d.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Lomo de cerdo"
-    ],
-    "tags": [],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "extra-cabeza-de-lomo-de-cerdo-678632832f2af0a797ee5487",
-    "name": "Extra Cabeza de lomo de cerdo 125g por ración",
-    "local_image_name": "extra-cabeza-de-lomo-de-cerdo-678632832f2af0a797ee5487.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Cabeza de lomo"
-    ],
-    "tags": [],
-    "cuisine": "Mediterránea "
-  },
-  {
-    "id": "flan-de-huevo-678632be2f2af0a797ee548e",
-    "name": "Flan de huevo ",
-    "local_image_name": "flan-de-huevo-678632be2f2af0a797ee548e.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [],
-    "tags": [],
-    "cuisine": "Mediterránea "
   },
   {
     "id": "pulpo-glaseado-con-kimchi-con-salsa-de-maiz-aocmpanado-de-pack-choi-y-calabacin-6788bec89160da204f344417",
@@ -30119,21 +29893,6 @@ export const recipesIndex = [
     "cuisine": "Mexicana"
   },
   {
-    "id": "tarta-de-queso-de-albert-adria-67f4e89cf87451a6ad28c7f2",
-    "name": "Tarta de queso de Albert Adrià 2-4 personas | 1 tarta de 330g",
-    "local_image_name": "tarta-de-queso-de-albert-adria-67f4e89cf87451a6ad28c7f2.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Tarta de Queso"
-    ],
-    "tags": [
-      "Bajo en calorías"
-    ],
-    "cuisine": "Mediterránea "
-  },
-  {
     "id": "hamburguesa-con-hummus-casera-y-verduras-salteadas-67f541e3fd9f35ae4fe9694a",
     "name": "¡Todo al rojo! Hamburguesa y hummus casero al pimentón con calabacín y tomate salteado",
     "local_image_name": "hamburguesa-con-hummus-casera-y-verduras-salteadas-67f541e3fd9f35ae4fe9694a.jpg",
@@ -31691,19 +31450,6 @@ export const recipesIndex = [
     "cuisine": "Española"
   },
   {
-    "id": "gazpacho-bodebo-68428b085ef6c49c55fd4bab",
-    "name": "Gazpacho Bo de debò ",
-    "local_image_name": "gazpacho-bodebo-68428b085ef6c49c55fd4bab.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Gazpacho"
-    ],
-    "tags": [],
-    "cuisine": "Española"
-  },
-  {
     "id": "salmorejo-casa-mas-68428bd7b9b1c59f93d7bb95",
     "name": "Salmorejo de Casa Mas 1 litro",
     "local_image_name": "salmorejo-casa-mas-68428bd7b9b1c59f93d7bb95.jpg",
@@ -31716,19 +31462,6 @@ export const recipesIndex = [
     "tags": [
       "sides-soup"
     ],
-    "cuisine": "Española"
-  },
-  {
-    "id": "salmorejo-bodebo-68428c156329c8e5b723395a",
-    "name": "Salmorejo Bo de debò ",
-    "local_image_name": "salmorejo-bodebo-68428c156329c8e5b723395a.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Salmorejo"
-    ],
-    "tags": [],
     "cuisine": "Española"
   },
   {
@@ -31861,32 +31594,6 @@ export const recipesIndex = [
     ],
     "tags": [],
     "cuisine": "Mediterránea "
-  },
-  {
-    "id": "pan-de-cereales-6842b0fb6329c8e5b7233f82",
-    "name": "Pan de Cereales 450g de pan de hogaza a rebanadas",
-    "local_image_name": "pan-de-cereales-6842b0fb6329c8e5b7233f82.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Pan de cereales"
-    ],
-    "tags": [],
-    "cuisine": ""
-  },
-  {
-    "id": "pan-proteico-6842b1316329c8e5b7233f86",
-    "name": "Pan Proteico 400g de pan a rebanadas",
-    "local_image_name": "pan-proteico-6842b1316329c8e5b7233f86.jpg",
-    "total_time": "PT0S",
-    "recipe_yield": 2,
-    "difficulty": 1,
-    "ingredients": [
-      "Pan proteico"
-    ],
-    "tags": [],
-    "cuisine": ""
   },
   {
     "id": "magret-de-pato-con-chimichurri-de-menta-maiz-y-cremoso-de-chirivia-6847df866329c8e5b723cc4d",

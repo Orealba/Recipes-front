@@ -36,6 +36,10 @@ with open(input_file, 'r', encoding='utf-8') as f:
         if local_image_name not in valid_images:
             continue
 
+        instruction_steps = data.get('instructionSteps')
+        if not isinstance(instruction_steps, list) or len(instruction_steps) == 0:
+            continue
+
         rich_ingredients = data.get('richIngredients', [])
         ingredient_names = [i.get('name', '') for i in rich_ingredients] if rich_ingredients else []
 
@@ -55,4 +59,4 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 with open(output_file, 'w', encoding='utf-8') as f:
     f.write('export const recipesIndex = ' + json.dumps(recipes, ensure_ascii=False, indent=2) + ';\n')
-print(f'Generated {len(recipes)} recipes (filtered by valid image)')
+print(f'Generated {len(recipes)} recipes (filtered by valid image and steps)')

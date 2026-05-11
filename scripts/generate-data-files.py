@@ -28,7 +28,13 @@ def generate_recipes_data():
     all_recipes = json.loads(content)
     valid_images = _valid_images_set()
 
-    recipes = [r for r in all_recipes if r.get('local_image_name', '') in valid_images]
+    def _has_steps(r):
+        steps = r.get('instruction_steps')
+        return isinstance(steps, list) and len(steps) > 0
+
+    recipes = [r for r in all_recipes
+               if r.get('local_image_name', '') in valid_images
+               and _has_steps(r)]
 
     os.makedirs(out_dir, exist_ok=True)
     for recipe in recipes:
@@ -37,7 +43,7 @@ def generate_recipes_data():
             json.dump(recipe, f, ensure_ascii=False)
 
     skipped = len(all_recipes) - len(recipes)
-    print(f'Generated {len(recipes)} individual recipe files -> {out_dir}/ ({skipped} skipped for bad images)')
+    print(f'Generated {len(recipes)} individual recipe files -> {out_dir}/ ({skipped} skipped for bad images or no steps)')
     return recipes
 
 
