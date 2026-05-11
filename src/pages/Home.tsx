@@ -1,10 +1,9 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RecipeGrid } from "../components/RecipeGrid";
 
-import { homeRecipes } from "../data/home-recipes";
 export interface Recipe {
   id: string;
   name: string;
@@ -22,56 +21,45 @@ function shuffle<T>(arr: T[]): T[] {
   }
   return a;
 }
+function metaToRecipe(meta: Record<string, any>, id: string): Recipe {
+  return {
+    id,
+    name: meta[id].name,
+    total_time: meta[id].total_time,
+    recipe_yield: 2,
+    image_url: null,
+    local_image_name: meta[id].local_image_name,
+  };
+}
 export function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [quickRecipes, setQuickRecipes] = useState<Recipe[]>([]);
+  const [chickenRecipes, setChickenRecipes] = useState<Recipe[]>([]);
   const [randomRecipes, setRandomRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
-    const loadRandom = async () => {
-      const res = await fetch('/recipes-meta.json');
-      const meta = await res.json();
-      const ids = Object.keys(meta);
-      const picked = shuffle(ids).slice(0, 3);
-      setRandomRecipes(picked.map(id => ({
-        id,
-        name: meta[id].name,
-        total_time: meta[id].total_time,
-        recipe_yield: 2,
-        image_url: null,
-        local_image_name: meta[id].local_image_name,
-      })));
+    const loadSections = async () => {
+      const [metaRes, catRes] = await Promise.all([
+        fetch('/recipes-meta.json'),
+        fetch('/categories-index.json'),
+      ]);
+      const meta = await metaRes.json();
+      const catIdx = await catRes.json();
+
+      const pick = (ids: string[], n: number) =>
+        shuffle(ids).slice(0, n).map(id => metaToRecipe(meta, id));
+
+      if (catIdx.rapidas) setQuickRecipes(pick(catIdx.rapidas.recipes, 3));
+      if (catIdx.pollo) setChickenRecipes(pick(catIdx.pollo.recipes, 3));
+
+      const allIds = Object.keys(meta);
+      setRandomRecipes(pick(allIds, 3));
     };
-    loadRandom();
+    loadSections();
   }, []);
-
-  const quickRecipes = useMemo(
-    () =>
-      homeRecipes.quick.map((r) => ({
-        id: r.id,
-        name: r.name,
-        total_time: r.total_time,
-        recipe_yield: r.recipe_yield,
-        image_url: null,
-        local_image_name: r.local_image_name,
-      })),
-    [],
-  );
-
-  const chickenRecipes = useMemo(
-    () =>
-      homeRecipes.chicken.map((r) => ({
-        id: r.id,
-        name: r.name,
-        total_time: r.total_time,
-        recipe_yield: r.recipe_yield,
-        image_url: null,
-        local_image_name: r.local_image_name,
-      })),
-    [],
-  );
   // Effect para detectar cuando se borra la búsqueda
   useEffect(() => {
     if (searchQuery.trim() === "") {

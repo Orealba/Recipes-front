@@ -1,9 +1,9 @@
 import json
+import os
 
 def generate_recipes_data():
     ts_path = 'src/data/recipes.ts'
-    jsonl_path = 'public/recipes.jsonl'
-    idx_path = 'public/recipes.idx.json'
+    out_dir = 'public/recipes'
 
     with open(ts_path, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -18,19 +18,13 @@ def generate_recipes_data():
 
     recipes = json.loads(content)
 
-    with open(jsonl_path, 'w', encoding='utf-8') as f:
-        index = {}
-        for recipe in recipes:
-            line = json.dumps(recipe, ensure_ascii=False) + '\n'
-            offset = f.tell()
-            f.write(line)
-            end = f.tell()
-            index[recipe['id']] = { 'offset': offset, 'length': end - offset }
+    os.makedirs(out_dir, exist_ok=True)
+    for recipe in recipes:
+        path = os.path.join(out_dir, f'{recipe["id"]}.json')
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(recipe, f, ensure_ascii=False)
 
-    with open(idx_path, 'w', encoding='utf-8') as f:
-        json.dump(index, f)
-
-    print(f'Generated {len(recipes)} recipes -> {jsonl_path} + {idx_path}')
+    print(f'Generated {len(recipes)} individual recipe files -> {out_dir}/')
     return recipes
 
 
