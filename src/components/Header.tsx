@@ -5,8 +5,10 @@ interface HeaderProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onSearch: () => void;
+  showFilters: boolean;
+  onToggleFilters: () => void;
 }
-export function Header({ searchQuery, onSearchChange, onSearch }: HeaderProps) {
+export function Header({ searchQuery, onSearchChange, onSearch, showFilters, onToggleFilters }: HeaderProps) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
   if (e.key === 'Enter') {
     onSearch();
@@ -40,10 +42,14 @@ export function Header({ searchQuery, onSearchChange, onSearch }: HeaderProps) {
         </button>
       </div>
 
-      {/* Botón de Filtros */}
-      <button className="flex items-center gap-2 text-gray-400 hover:text-gray-600 mt-4 text-sm font-medium transition-colors">
+      <button
+        onClick={onToggleFilters}
+        className={`flex items-center gap-2 mt-4 text-sm font-medium transition-colors ${
+          showFilters ? 'text-[#c45a36]' : 'text-gray-400 hover:text-gray-600'
+        }`}
+      >
         <SlidersHorizontal size={16} />
-        <span>Filtros (Próximamente)</span>
+        <span>Filtros</span>
       </button>
     </header>
   );

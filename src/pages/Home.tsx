@@ -90,6 +90,7 @@ export function Home() {
   const [randomRecipes, setRandomRecipes] = useState<Recipe[]>([]);
 
   const catIdxRef = useRef<Record<string, { recipes: string[] }> | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState<number>(0);
   const [selectedMaxTime, setSelectedMaxTime] = useState<number>(0);
@@ -208,6 +209,8 @@ export function Home() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           onSearch={handleSearch}
+          showFilters={showFilters}
+          onToggleFilters={() => setShowFilters(v => !v)}
         />
         {/* Si hay búsqueda activa, mostrar resultados */}
         {hasSearched && (
@@ -228,7 +231,7 @@ export function Home() {
                 </h2>
 
                 {/* Filtros */}
-                <div className="flex flex-wrap gap-6 mb-6 p-4 bg-white rounded-lg border border-gray-200">
+                {showFilters && <div className="flex flex-wrap gap-6 mb-6 p-4 bg-white rounded-lg border border-gray-200">
                   <div>
                     <p className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">Categoría</p>
                     <div className="flex flex-wrap gap-1.5">
@@ -278,7 +281,7 @@ export function Home() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </div>}
 
                 {recipes.length === 0 ? (
                   <p className="text-gray-500 mt-4">
