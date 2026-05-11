@@ -1,6 +1,15 @@
 import json
 import os
 
+def _valid_images_set():
+    img_dir = 'public/hellofresh_images'
+    valid = set()
+    for fname in os.listdir(img_dir):
+        path = os.path.join(img_dir, fname)
+        if os.path.isfile(path) and os.path.getsize(path) > 1024:
+            valid.add(fname)
+    return valid
+
 def generate_recipes_data():
     ts_path = 'src/data/recipes.ts'
     out_dir = 'public/recipes'
@@ -16,7 +25,10 @@ def generate_recipes_data():
     if content.endswith(';\n'):
         content = content[:-2]
 
-    recipes = json.loads(content)
+    all_recipes = json.loads(content)
+    valid_images = _valid_images_set()
+
+    recipes = [r for r in all_recipes if r.get('local_image_name', '') in valid_images]
 
     os.makedirs(out_dir, exist_ok=True)
     for recipe in recipes:
@@ -24,7 +36,8 @@ def generate_recipes_data():
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(recipe, f, ensure_ascii=False)
 
-    print(f'Generated {len(recipes)} individual recipe files -> {out_dir}/')
+    skipped = len(all_recipes) - len(recipes)
+    print(f'Generated {len(recipes)} individual recipe files -> {out_dir}/ ({skipped} skipped for bad images)')
     return recipes
 
 

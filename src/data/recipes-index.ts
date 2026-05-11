@@ -30820,6 +30820,40 @@ export const recipesIndex = [
     "cuisine": "Española"
   },
   {
+    "id": "tacos-de-lechuga-con-cerdo-y-almendras-68189418a6365358db013589",
+    "name": "Tacos de lechuga con cerdo y almendras con cebolla encurtida y mayonesa de sriracha",
+    "local_image_name": "tacos-de-lechuga-con-cerdo-y-almendras-68189418a6365358db013589.jpeg",
+    "total_time": "30m",
+    "recipe_yield": 2,
+    "difficulty": 2,
+    "ingredients": [
+      "Cebolla roja",
+      "Almendras laminadas",
+      "Zanahoria",
+      "Menta",
+      "Carne de cerdo picada",
+      "Salsa de soja",
+      "Cogollos de lechuga",
+      "Mayonesa",
+      "Sriracha",
+      "Sal y pimienta",
+      "Aceite de oliva",
+      "Vinagre",
+      "Sal para encurtir",
+      "Ajo",
+      "Harina",
+      "Agua"
+    ],
+    "tags": [
+      "Bajo en calorías",
+      "Lunch/Dinner",
+      "Balanced",
+      "Picante opcional",
+      "Una sartén"
+    ],
+    "cuisine": "57ebbc17b7e8697d4b3053a5"
+  },
+  {
     "id": "salchichas-encebolladas-68189419939c9c30689234fc",
     "name": "Salchichas encebolladas con patatas a la mostaza con calabacín salteado",
     "local_image_name": "salchichas-encebolladas-68189419939c9c30689234fc.jpg",
@@ -32370,6 +32404,59 @@ export const recipesIndex = [
     ],
     "tags": [],
     "cuisine": "Latin American"
+  },
+  {
+    "id": "rigatonis-gratinados-con-pollo-y-queso-685bf0dd2704234ed777241e",
+    "name": "Rigatonis gratinados con extra de pollo y queso con salsa de tomate a la barbacoa",
+    "local_image_name": "rigatonis-gratinados-con-pollo-y-queso-685bf0dd2704234ed777241e.jpeg",
+    "total_time": "PT35M",
+    "recipe_yield": 2,
+    "difficulty": 1,
+    "ingredients": [
+      "Muslos de pollo troceados",
+      "Queso italiano rallado curado",
+      "Rigatoni",
+      "Nata líquida",
+      "Cebolla",
+      "Sazonador barbacoa",
+      "Passata de tomate",
+      "Sal y pimienta",
+      "Aceite de oliva",
+      "Agua",
+      "Azúcar"
+    ],
+    "tags": [
+      "Picante",
+      "Lunch "
+    ],
+    "cuisine": "American"
+  },
+  {
+    "id": "merluza-con-costra-de-panko-y-queso-italiano-685bf0e4971405a9ee1f9a8d",
+    "name": "Extra de merluza con costra de panko y queso italiano con patatas y verduras asadas y alioli",
+    "local_image_name": "merluza-con-costra-de-panko-y-queso-italiano-685bf0e4971405a9ee1f9a8d.jpeg",
+    "total_time": "35m",
+    "recipe_yield": 2,
+    "difficulty": 1,
+    "ingredients": [
+      "Patata",
+      "Zanahoria",
+      "Cebolla",
+      "Panko",
+      "Queso italiano rallado curado",
+      "Merluza",
+      "Alioli",
+      "Sal y pimienta",
+      "Aceite de oliva",
+      "Orégano"
+    ],
+    "tags": [
+      "Familia",
+      "Preparación en 10'",
+      "Solo horno",
+      "Preparación en 15'"
+    ],
+    "cuisine": "57ebbc17b7e8697d4b3053bf"
   },
   {
     "id": "pollo-con-salsa-de-membrillo-685bfe722704234ed7772a83",
