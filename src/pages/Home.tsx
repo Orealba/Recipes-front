@@ -21,6 +21,20 @@ function shuffle<T>(arr: T[]): T[] {
   }
   return a;
 }
+function normalize(text: string): string {
+  return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+const STOP_WORDS = new Set([
+  'el', 'la', 'los', 'las', 'un', 'una', 'unos', 'unas',
+  'de', 'del', 'en', 'con', 'sin', 'por', 'para', 'a', 'ante',
+  'bajo', 'contra', 'desde', 'durante', 'entre', 'hacia',
+  'hasta', 'mediante', 'segun', 'so', 'sobre', 'tras',
+  'y', 'e', 'o', 'u', 'que', 'al', 'lo', 'le', 'se', 'no', 'es',
+  'su', 'sus', 'tu', 'mi', 'él', 'ella', 'ello',
+]);
+function tokenize(text: string): string[] {
+  return normalize(text).split(/\s+/).filter(t => t.length > 1 && !STOP_WORDS.has(t));
+}
 function metaToRecipe(meta: Record<string, any>, id: string): Recipe {
   return {
     id,
@@ -78,14 +92,19 @@ export function Home() {
     setIsSearching(true);
 
     const { recipesIndex } = await import("../data/recipes-index");
-    const query = searchQuery.toLowerCase();
+    const tokens = tokenize(searchQuery);
+    if (tokens.length === 0) {
+      setRecipes([]);
+      setIsSearching(false);
+      return;
+    }
     const filtered = recipesIndex
       .filter((recipe) => {
-        const nameMatch = recipe.name.toLowerCase().includes(query);
-        const ingredientMatch = recipe.ingredients?.some((ing) =>
-          ing.toLowerCase().includes(query),
+        const name = normalize(recipe.name);
+        const ingredients = (recipe.ingredients || []).map(normalize);
+        return tokens.some(token =>
+          name.includes(token) || ingredients.some(ing => ing.includes(token))
         );
-        return nameMatch || ingredientMatch;
       })
       .map((recipe) => ({
         id: recipe.id,
@@ -121,7 +140,7 @@ export function Home() {
                 <h2 className="text-xl font-semibold mb-4">
                   Resultados de "{searchQuery}"
                 </h2>
-                <RecipeGrid recipes={recipes.slice(0, 3)} />
+                <RecipeGrid recipes={recipes} />
               </div>
             )}
           </div>
