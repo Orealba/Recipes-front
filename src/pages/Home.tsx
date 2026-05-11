@@ -137,7 +137,7 @@ export function Home() {
 
     if (selectedCategories.length > 0 && catIdxRef.current) {
       base = base.filter(r =>
-        selectedCategories.some(cat =>
+        selectedCategories.every(cat =>
           catIdxRef.current![cat]?.recipes.includes(r.id)
         )
       );
