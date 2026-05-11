@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "python3 scripts/generate-data-files.py",
     "dev": "vite",
+    "prebuild": "python3 scripts/generate-data-files.py",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

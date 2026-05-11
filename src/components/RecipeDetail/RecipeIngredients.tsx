@@ -1,9 +1,5 @@
 import { useState } from "react";
 
-interface Ingredient {
-  name: string;
-}
-
 interface RecipeIngredientsProps {
   ingredients: string[];
   baseYield: number;

@@ -6,22 +6,32 @@ import { RecipeDescription } from '../components/RecipeDetail/RecipeDescription'
 import { RecipeAllergens } from '../components/RecipeDetail/RecipeAllergens';
 import { RecipeIngredients } from '../components/RecipeDetail/RecipeIngredients';
 import { RecipeSteps } from '../components/RecipeDetail/RecipeSteps';
+import { RecipeNutrition } from '../components/RecipeDetail/RecipeNutrition';
 
 export function RecipeDetail() {
   const { id } = useParams<{ id: string }>();
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [recipe, setRecipe] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadRecipes = async () => {
-      const { recipes } = await import('../data/recipes');
-      setRecipes(recipes);
+    const loadRecipe = async () => {
+      if (!id) { setLoading(false); return; }
+      const idxRes = await fetch('/recipes.idx.json');
+      const idx = await idxRes.json();
+      const entry = idx[id];
+      if (!entry) { setLoading(false); return; }
+
+      const end = entry.offset + entry.length - 1;
+      const recipeRes = await fetch('/recipes.jsonl', {
+        headers: { 'Range': `bytes=${entry.offset}-${end}` }
+      });
+      const text = await recipeRes.text();
+      const recipe = JSON.parse(text);
+      setRecipe(recipe);
       setLoading(false);
     };
-    loadRecipes();
-  }, []);
-
-  const recipe = id ? recipes.find((r: any) => r.id === id) : null;
+    loadRecipe();
+  }, [id]);
 
   if (loading || !recipe) {
     return <div className="p-4">Cargando...</div>;
@@ -36,13 +46,22 @@ export function RecipeDetail() {
       />
       <RecipeInfo
         total_time={recipe.total_time}
-        calories={recipe.nutrition?.calories}
+        calories={(() => {
+          const n = recipe.nutrition;
+          if (!n) return null;
+          if (Array.isArray(n)) {
+            const kcal = n.find((i: any) => i.name?.includes('kcal'));
+            return kcal?.amount ?? null;
+          }
+          return n.calories ?? null;
+        })()}
         difficulty={recipe.difficulty}
       />
       <RecipeDescription description={recipe.description} />
       <RecipeAllergens allergens={recipe.allergens || []} />
       <RecipeIngredients ingredients={recipe.ingredients_text || []} baseYield={recipe.recipe_yield || 2} />
       <RecipeSteps steps={recipe.instruction_steps || []} />
+      <RecipeNutrition nutrition={recipe.nutrition || null} />
     </div>
   );
 }
